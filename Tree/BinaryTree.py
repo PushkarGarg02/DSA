@@ -158,7 +158,7 @@ class BinarySearchTree:
             if current_node.right:
                 traverse(current_node.right)
 
-        traverse(self.root)
+        if self.root: traverse(self.root)
         return results
 
     def dfs_in_order(self):
@@ -173,7 +173,7 @@ class BinarySearchTree:
             if current_node.right:
                 traverse(current_node.right)
 
-        traverse(self.root)
+        if self.root: traverse(self.root)
         return results
 
     def dfs_post_order(self):
@@ -187,7 +187,7 @@ class BinarySearchTree:
 
             results.append(current_node.value)
 
-        traverse(self.root)
+        if self.root: traverse(self.root)
         return results
 
     def is_tree_balanced(self, current_node):
@@ -246,6 +246,29 @@ class BinarySearchTree:
         current_node.left = reattach_node
         pivot.right = current_node
         return pivot
+
+    def isSymmetric(self, root) -> bool:
+        """
+        True: If tree is symmetric
+        False: if tree is not symmetric
+        """
+        if root is None:
+            return False
+        else:
+            return self.isMirror(root.left, root.right)
+
+    def isMirror(self, left, right):
+        if left is None and right is None:
+            return True
+        if left is None or right is None:
+            return False
+
+        if left.val == right.val:
+            outPair = self.isMirror(left.left, right.right)
+            inPair = self.isMirror(left.right, right.left)
+            return outPair and inPair
+        else:
+            return False
         
 
 if __name__ == "__main__":
